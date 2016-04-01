@@ -12,7 +12,10 @@ var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+//把ejs渲染模板换成html的
+app.set('view engine', 'html');
+app.engine('html',require('ejs').__express)
+
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -20,6 +23,8 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+//把所有静态文件放在public文件夹下 所以在链接静态文件的时候就不用在写public了
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
